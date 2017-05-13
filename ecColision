@@ -1,0 +1,74 @@
+class ecColision
+{
+public:
+	
+	ecColision()
+	{
+		circle.radio = 1;
+		circle.centro.x = 0;
+		circle.centro.z = 0;
+	}
+	void inicializar(bool asignar_radio,float *radio_objeto, float *ObjX, float *ObjY, float *ObjZ)
+	{
+		if (asignar_radio)
+		{
+			circle.radio = *radio_objeto;
+		}
+			circle.centro.x = *ObjX;
+			circle.centro.y = *ObjY;
+			circle.centro.z = *ObjZ;
+		
+	}
+	ecColision(float radio_objeto, float ObjX, float ObjY, float ObjZ)
+	{
+		inicializar(true, &radio_objeto, &ObjX, &ObjY, &ObjZ);
+	}
+	struct Punto3d
+	{
+		float x;
+		float y;
+		float z;
+	};
+
+	struct Circulo
+	{
+		Punto3d centro;
+		float radio;
+	}circle;
+
+	float distanciaPuntos(Punto3d *puntoA, Punto3d *puntoB)
+	{
+		float distancia_x = puntoB->x - puntoA->x;
+		float distancia_y = puntoB->y - puntoA->y;
+		float distancia_z = puntoB->z - puntoA->z;
+
+		return (float)sqrt((distancia_x*distancia_x) + (distancia_y*distancia_y) + (distancia_z*distancia_z));
+	}
+
+	bool esPuntoAdentro(Circulo *circulo, Punto3d *punto)
+	{
+		if (!DesactivarColision)
+		{
+			if (distanciaPuntos(&(circulo->centro), punto) <= circulo->radio)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	void DibujarRangoDeColision(bool dibujar, float newRadio)
+	{
+		if (dibujar)
+		{
+			circle.radio = newRadio;
+			glPushMatrix();
+				glColor3f(0, 1, 0);
+				glTranslatef(circle.centro.x, circle.centro.y, circle.centro.z);
+				glutWireSphere	(circle.radio, 8, 8);
+			glPopMatrix();
+		}
+	}
+	
+};
