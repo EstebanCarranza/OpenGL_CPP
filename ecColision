@@ -1,8 +1,5 @@
-
-
 #include <GL\glut.h>
 #include <math.h>
-
 class ecColision
 {
 public:
@@ -22,7 +19,6 @@ public:
 		circle.centro.x = *ObjX;
 		circle.centro.y = *ObjY;
 		circle.centro.z = *ObjZ;
-
 	}
 	ecColision(float radio_objeto, float ObjX, float ObjY, float ObjZ)
 	{
@@ -30,17 +26,13 @@ public:
 	}
 	struct Punto3d
 	{
-		float x;
-		float y;
-		float z;
+		float x, y, z;
 	};
-
 	struct Circulo
 	{
 		Punto3d centro;
 		float radio;
 	}circle;
-
 	float distanciaPuntos(Punto3d *puntoA, Punto3d *puntoB)
 	{
 		float distancia_x = puntoB->x - puntoA->x;
@@ -49,7 +41,6 @@ public:
 
 		return (float)sqrt((distancia_x*distancia_x) + (distancia_y*distancia_y) + (distancia_z*distancia_z));
 	}
-
 	bool esPuntoAdentro(Circulo *circulo, Punto3d *punto)
 	{
 		if (!DesactivarColision)
@@ -62,7 +53,6 @@ public:
 
 		return false;
 	}
-
 	void DibujarRangoDeColision(bool dibujar, float newRadio)
 	{
 		if (dibujar)
@@ -75,5 +65,4 @@ public:
 			glPopMatrix();
 		}
 	}
-
 };
